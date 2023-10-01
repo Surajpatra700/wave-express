@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Wave</title>
+</head>
+<body>
+    <h1 class="title">Wave🌊</h1>
+    <div class="main">
+        <div class="name">
+            <span>
+                <i class="far fa-user"></i>
+            </span>
+            <input type="text" id="name-input" class="name-input" value="anonymous" maxlength="20">
+        </div>
+
+        <ul class="message-container" id="message-container">
+            <li class="message-left">
+                <p class="message">
+                    lorem ipsum
+                    <span>bluebird • 26 July 10:40</span>
+                </p>
+            </li>
+
+            <li class="message-right">
+                <p class="message">
+                    lorem ipsum
+                    <span>bluebird • 26 July 10:40</span>
+                </p>
+            </li>
+
+            <li class="message-feedback">
+                <p class="feedback" id="feedback">
+                    ✍️killer is typing a message
+                </p>
+            </li>
+        </ul>
+
+        <form class="message-form" id="message-form">
+            <input type="text" name="message" id="message-input" class="message-input">
+            <div class="v-divider"></div>
+            <button type="submit" class="send-button">send <i class="far fa-paper-plane"></i><span></span></button>
+        </form>
+
+    </div>
+    <h3 class="clients-total" id="clients-total">Total client: 2</h3>
+<!-- client script for socket.io comes from socket.io library defined by index\.js  -->
+    <script src="/socket.io/socket.io.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,20 +1,40 @@
 const express = require('express')
-const http = require('http')
-// const cors = require('cors')
+const path = require("path");
 const app = express()
-const port = process.env.PORT || 5000
-const server = http.createServer(app)
-var io = require('socket.io')(server)
+const port = process.env.PORT || 4000
 
-// middlewares
-
-app.use(express.json())
-// app.use(cors())
-
-io.on("Connection", (socket)=>{
-    console.log("connected !");
+const server = app.listen(port, ()=>{
+    console.log(`Server is running on ${port}!`)
 });
 
-server.listen(port, "0.0.0.0", ()=>{
-    console.log("Server is running !")
-});
+const io = require('socket.io')(server)
+
+app.use(express.static(path.join(__dirname, 'public')))
+
+let socketsConnected = new Set()
+
+io.on('connection', onConnected)
+
+function onConnected(socket){ // socket is a parameter that represents the client-side socket
+    // Each user/ client is a socket
+    console.log(socket.id);
+    socketsConnected.add(socket.id);
+
+    io.emit("clients-total", socketsConnected.size)
+
+    socket.on('disconnect', ()=>{
+        console.log("Socket disconnected", socket.id)
+        socketsConnected.delete(socket.id)
+        io.emit("clients-total", socketsConnected.size)
+    })
+
+    socket.on('message', (data)=>{
+        console.log(data)
+        socket.broadcast.emit('chat-message', data)
+    })
+
+    socket.on('feedback', (data)=>{
+        socket.broadcast.emit('feedback', data)
+    })
+
+}
